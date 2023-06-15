@@ -31,5 +31,9 @@ jobs:
         run: npm install
       - name: Update Dependencies
         run: npm update
-      - name: Run Application
-        run: npm start
+      - name: Test Application
+        run: npm test
+      - name: Build Application
+        run: npm i -g nexe
+      - name: Build Executable
+        run: nexe -i index.js -o content-writer-ai
