@@ -8,16 +8,16 @@ const chalk = require("chalk");
 
 console.log(
   chalk.yellow(
-    figlet.textSync("Content Writer AI", {
+    figlet.textSync("Bing AI", {
       horizontalLayout: "default",
       verticalLayout: "default",
       font: "Larry 3D",
     }),
-    "\n".repeat(2) + " ".repeat(50) + "v1.0.0 - Ihsan Devs",
+    "\n".repeat(2) + " ".repeat(20) + "v1.0.0 - by Ihsan Devs",
     "\n".repeat(2) +
-      " ".repeat(25) +
+      " ".repeat(2) +
       chalk.green(
-        "Content Writer AI is a tool to generate content from prompt using AI." +
+        "Bing AI is a tool to generate content from prompt using AI." +
           "\n".repeat(2)
       )
   )
@@ -107,7 +107,7 @@ async function generateContent(
         value: 3,
       },
       {
-        name: "Ideas",
+        name: "Chat",
         value: 4,
       },
     ],
@@ -198,27 +198,33 @@ async function generateContent(
       load.info("Reloading page...");
     });
   }
+
   load.succeed("Prompt input found");
 
-  // remove attribute "maxlength" from prompt input
-  const removeAttribute = await page.evaluate(() => {
-    document.getElementById("prompt_text").removeAttribute("maxlength");
+  load.info("Removing maxlength attribute...");
+
+  // promise to wait for maxlength attribute removed
+  let promise = new Promise((resolve, reject) => {
+    let interval = setInterval(() => {
+      page
+        .evaluate(() => {
+          document.getElementById("prompt_text").removeAttribute("maxlength");
+          return document
+            .getElementById("prompt_text")
+            .getAttribute("maxlength");
+        })
+        .then((el) => {
+          if (el == null) {
+            clearInterval(interval);
+            resolve();
+          }
+        });
+    }, 100);
   });
 
-  // loop until prompt attribute "maxlength" removed
-  let removed = false;
-  while (!removed) {
-    // check if prompt attribute "maxlength" removed
-    const check = await page.evaluate(() => {
-      return document.getElementById("prompt_text").hasAttribute("maxlength");
-    });
-
-    if (!check) {
-      removed = true;
-    } else {
-      removeAttribute;
-    }
-  }
+  await promise.then(() => {
+    load.succeed("Maxlength attribute removed");
+  });
 
   load.info("filling prompt input...");
 
@@ -300,6 +306,21 @@ async function generateContent(
       document
         .querySelector(`div.format-option:nth-child(${formatXPathQuery})`)
         .classList.add("selected");
+
+      // if config format is chat, set chat format
+      if (formatXPathPosition == 3) {
+        // change attribute unloc-name and aria-label to "Chat"
+        document
+          .querySelector(`div.format-option:nth-child(${formatXPathQuery})`)
+          .setAttribute("unloc-name", "Chat");
+        document
+          .querySelector(`div.format-option:nth-child(${formatXPathQuery})`)
+          .setAttribute("aria-label", "Chat");
+        // change p element text to "Chat"
+        document.querySelector(
+          `div.format-option:nth-child(${formatXPathQuery}) > p`
+        ).innerText = "Chat";
+      }
     },
     formatXPathPosition + 1,
     formatXPathPosition

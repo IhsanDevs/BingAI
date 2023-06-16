@@ -1,10 +1,10 @@
 {
-  "name": "contentwriterai",
+  "name": "bing-ai",
   "version": "1.0.0",
-  "description": "",
+  "description": "Bing AI wrapper for NodeJS",
   "main": "index.js",
   "bin": {
-    "IhsanDevsAI": "./index.js"
+    "bing": "./index.js"
   },
   "dependencies": {
     "agent-base": "^6.0.2",
@@ -99,30 +99,19 @@
     "yauzl": "^2.10.0"
   },
   "scripts": {
-    "test": "node index.js generate -p \"Hello world python tutorial\" -o \"Hello World\" -t 1",
-    "start": "node index.js generate -p \"prompt.txt\" -o \"rangkuman.md\" -h false -f 1",
-    "api": "node server.cjs"
+    "test": "node index.js generate -p \"Hello World\" -o \"hello-world.md\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IhsanDevs/BingAI.git"
   },
   "keywords": [
     "bing",
     "ai",
-    "content-writer"
+    "microsoft"
   ],
   "author": "Ihsan Devs",
   "license": "ISC",
-  "pkg": {
-    "scripts": [
-      "./chromePath.js",
-      "./generate.js",
-      "./removeCodeDelimiters.js"
-    ],
-    "targets": [
-      "node16-win-x64",
-      "node16-linux-x64",
-      "node16-macos-x64"
-    ],
-    "outputPath": "dist"
-  },
   "devDependencies": {
     "@types/ansi-styles": "^4.2.0",
     "@types/express": "^4.17.17",

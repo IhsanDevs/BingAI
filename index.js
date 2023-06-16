@@ -1,4 +1,4 @@
-#!/Users/ihsandevs/.nvm/versions/node/v19.9.0/bin/node
+#!node
 const generate = require("./generate").generate;
 const { argv } = require("process");
 const yargs = require("yargs");
@@ -39,8 +39,8 @@ yargs
       type: "number",
       choices: [1, 2, 3, 4],
       defaultDescription: "Blog Post",
-      description: "1: Paragraph, 2: Email, 3: Blog Post, 4: Ideas",
-      default: 3,
+      description: "1: Paragraph, 2: Email, 3: Blog Post, 4: Chat",
+      default: 4,
       requiresArg: false,
     },
     length: {
@@ -59,7 +59,7 @@ yargs
       describe: "Run in headless mode",
       demandOption: false,
       type: "boolean",
-      default: true,
+      default: false,
       defaultDescription: "true",
       requiresArg: false,
     },
