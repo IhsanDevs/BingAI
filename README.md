@@ -2,10 +2,29 @@
 
 > Bing AI wrapper that you can use via CLI 😎
 
+### Features:
+
+- Unlimited prompt length ✨
+- Customization of output format and tone 👏
+- No need for any authorization or login 🚀
+- Have other feature ideas? Feel free to contribute to the repository.
+
 ### Installation:
 
+### 1. Using git
+
 ```bash
-npm i -g bing-ai
+git clone https://github.com/IhsanDevs/BingAI.git && cd BingAI
+```
+
+```bash
+npm install -g
+```
+
+### 2. Using npm
+
+```bash
+npm install -g bing-ai
 ```
 
 ### Usage:
@@ -19,10 +38,3 @@ bing-ai --help
 ```bash
 bing-ai --prompt "Generate a random number between 1 and 10" --output "results.md"
 ```
-
-### Features:
-
-- Unlimited prompt length ✨
-- Customization of output format and tone 👏
-- No need for any authorization or login 🚀
-- Have other feature ideas? Feel free to contribute to the repository.
